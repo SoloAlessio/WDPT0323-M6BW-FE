@@ -1,0 +1,10 @@
+#MessageArea{
+    position: fixed;
+    bottom: 0;
+    right: 24px;
+    width: fit-content;
+    @media only screen and (max-width: 600px){
+        width: 100%;
+        right: 0;
+    }
+}
