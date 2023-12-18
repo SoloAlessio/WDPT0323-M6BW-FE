@@ -1,0 +1,22 @@
+.details {
+  > * {
+    margin-bottom: 0;
+  }
+}
+
+.experiences {
+  .experience-header {
+    button {
+      padding: 0;
+      width: 40px;
+      height: 40px;
+      margin-bottom: -20px;
+      border: 0;
+      background-color: white;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: rgba(0, 0, 0, 0.08);
+    }
+  }
+}
