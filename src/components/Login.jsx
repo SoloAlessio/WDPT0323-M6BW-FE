@@ -2,14 +2,31 @@ import React from "react"
 import { Container, Row, Col, Form, Button } from "react-bootstrap"
 import { useNavigate } from "react-router"
 import { Link } from "react-router-dom"
+import { useEffect, useState } from "react"
 
 function Login() {
     const navigate = useNavigate()
+    const [Body, setBody] = useState({
+        email: "",
+        password: "",
+    })
     const handleSubmit = (e) => {
         e.preventDefault()
         alert("LOGIN")
         navigate("/")
     }
+    useEffect(() => {
+        const getData = () => {
+            fetch("http://localhost:3030/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(body),
+            })
+        }
+    }, [])
+
     return (
         <Container>
             <Row>
@@ -22,6 +39,7 @@ function Login() {
                                 type="email"
                                 placeholder="Enter email"
                                 required
+                                onInput={() => setBody({})}
                             />
                         </Form.Group>
                         <Form.Group
