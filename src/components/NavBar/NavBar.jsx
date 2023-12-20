@@ -22,13 +22,17 @@ export default function NavBar() {
     const token = localStorage.getItem("token")
 
     useEffect(() => {
-        fetch(`${process.env.ENDPOINT_URL}/profile`, {
+        fetch(`${process.env.ENDPOINT_URL}/profile/`, {
             headers: {
-                Authorization: token,
+                Authorization: `Bearer ${token}`,
             },
         })
             .then((r) => r.json())
-            .then(setprofiles)
+            .then((profiles) => {
+                setprofiles(profiles)
+                console.log(profiles)
+            })
+            .catch((error) => console.error("Error fetching data:", error))
     }, [token])
 
     function Filter() {
@@ -44,9 +48,9 @@ export default function NavBar() {
     const [myProfile, setMyProfile] = useState("")
 
     const getMyProfile = useCallback(() => {
-        fetch(`${process.env.ENDPOINT_URL}/profile/me`, {
+        fetch(`${process.env.ENDPOINT_URL}/profile/6581e975ff3b3553e74fdbcd`, {
             headers: {
-                Authorization: token,
+                Authorization: `Bearer ${token}`,
             },
         })
             .then((r) => r.json())

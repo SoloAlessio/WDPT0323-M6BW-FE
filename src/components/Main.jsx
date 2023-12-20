@@ -1,5 +1,5 @@
 import { Container, Row, Col } from "react-bootstrap"
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import Jumbotron from "./Jumbotron/Index.jsx"
 import Experiences from "./Experiences/WorkArea.jsx"
 import { Link } from "react-router-dom"
@@ -13,25 +13,26 @@ export default function Main() {
     const token = localStorage.getItem("token")
     const myId = localStorage.getItem("userId")
 
-    const getMyProfile = async () => {
+    const getMyProfile = useCallback(async () => {
         let response = await fetch(`${process.env.ENDPOINT_URL}/profile/me`, {
             headers: {
-                Authorization: token,
+                Authorization: `Bearer ${token}`,
             },
         })
 
         if (response.ok) {
             let data = await response.json()
+            console.log(data)
             setMyProfile(data)
         } else {
             throw new Error("Error")
         }
-    }
+    }, [token])
 
-    const getAllProfiles = async () => {
+    const getAllProfiles = useCallback(async () => {
         let response = await fetch(`${process.env.ENDPOINT_URL}/profile`, {
             headers: {
-                Authorization: token,
+                Authorization: `Bearer ${token}`,
             },
         })
 
@@ -41,13 +42,13 @@ export default function Main() {
         } else {
             throw new Error("Error")
         }
-    }
+    }, [token])
 
     useEffect(() => {
         getMyProfile()
         getAllProfiles()
         window.scrollTo(0, 0)
-    }, [token])
+    }, [getMyProfile, getAllProfiles, token])
 
     return (
         <Container className="mt-4">
