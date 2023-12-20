@@ -2,30 +2,34 @@ import React from "react"
 import { Container, Row, Col, Form, Button } from "react-bootstrap"
 import { useNavigate } from "react-router"
 import { Link } from "react-router-dom"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 
 function Login() {
     const navigate = useNavigate()
-    const [Body, setBody] = useState({
+    const [body, setBody] = useState({
         email: "",
         password: "",
     })
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
-        alert("LOGIN")
-        navigate("/")
-    }
-    useEffect(() => {
-        const getData = () => {
-            fetch("http://localhost:3030/login", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(body),
-            })
+        console.log(body)
+        let response = await fetch("http://localhost:3030/api/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(body),
+        })
+        if (response.ok) {
+            let data = await response.json()
+            localStorage.setItem("token", data.token)
+            localStorage.setItem("userId", data.payload.id)
+            navigate("/")
+        } else {
+            document.getElementById("error").innerHTML = "Wrong Credentaials!"
+            setBody({ ...body, password: "" })
         }
-    }, [])
+    }
 
     return (
         <Container>
@@ -38,8 +42,11 @@ function Login() {
                             <Form.Control
                                 type="email"
                                 placeholder="Enter email"
+                                value={body.email}
                                 required
-                                onInput={() => setBody({})}
+                                onInput={(e) =>
+                                    setBody({ ...body, email: e.target.value })
+                                }
                             />
                         </Form.Group>
                         <Form.Group
@@ -50,9 +57,20 @@ function Login() {
                             <Form.Control
                                 type="password"
                                 placeholder="Password"
+                                value={body.password}
                                 required
+                                onInput={(e) =>
+                                    setBody({
+                                        ...body,
+                                        password: e.target.value,
+                                    })
+                                }
                             />
                         </Form.Group>
+                        <p
+                            id="error"
+                            className="text-danger mt-3 mb-0 fw-semibold text-center"
+                        />
                         <Button
                             variant="primary"
                             type="submit"
