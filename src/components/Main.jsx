@@ -11,18 +11,20 @@ export default function Main() {
     const [allProfiles, setAllProfiles] = useState("")
     const [myProfile, setMyProfile] = useState("")
     const token = localStorage.getItem("token")
-    const myId = localStorage.getItem("userId")
+    const userId = localStorage.getItem("userId")
 
     const getMyProfile = useCallback(async () => {
-        let response = await fetch(`${process.env.ENDPOINT_URL}/profile/me`, {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        })
+        let response = await fetch(
+            `${process.env.REACT_APP_ENDPOINT_URL}/profile/me`,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            }
+        )
 
         if (response.ok) {
             let data = await response.json()
-            console.log(data)
             setMyProfile(data)
         } else {
             throw new Error("Error")
@@ -30,11 +32,14 @@ export default function Main() {
     }, [token])
 
     const getAllProfiles = useCallback(async () => {
-        let response = await fetch(`${process.env.ENDPOINT_URL}/profile`, {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        })
+        let response = await fetch(
+            `${process.env.REACT_APP_ENDPOINT_URL}/profile`,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            }
+        )
 
         if (response.ok) {
             let data = await response.json()
@@ -57,11 +62,8 @@ export default function Main() {
                     <Jumbotron
                         myProfile={myProfile}
                         getMyProfile={getMyProfile}
-                        myId={myId}
                     />
-                    {myProfile && (
-                        <Experiences userId={myProfile._id} myId={myId} />
-                    )}
+                    {myProfile && <Experiences userId={userId} />}
                 </Col>
                 <Col lg={4}>
                     <Container className="bg-white border rounded-3 p-3 mt-2 mt-lg-0">

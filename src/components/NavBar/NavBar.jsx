@@ -22,7 +22,7 @@ export default function NavBar() {
     const token = localStorage.getItem("token")
 
     useEffect(() => {
-        fetch(`${process.env.ENDPOINT_URL}/profile/`, {
+        fetch(`${process.env.REACT_APP_ENDPOINT_URL}/profile`, {
             headers: {
                 Authorization: `Bearer ${token}`,
             },
@@ -30,7 +30,6 @@ export default function NavBar() {
             .then((r) => r.json())
             .then((profiles) => {
                 setprofiles(profiles)
-                console.log(profiles)
             })
             .catch((error) => console.error("Error fetching data:", error))
     }, [token])
@@ -48,7 +47,7 @@ export default function NavBar() {
     const [myProfile, setMyProfile] = useState("")
 
     const getMyProfile = useCallback(() => {
-        fetch(`${process.env.ENDPOINT_URL}/profile/6581e975ff3b3553e74fdbcd`, {
+        fetch(`${process.env.REACT_APP_ENDPOINT_URL}/profile/me`, {
             headers: {
                 Authorization: `Bearer ${token}`,
             },
@@ -325,7 +324,10 @@ export default function NavBar() {
                                 <NavDropdown.Divider />
 
                                 <Container className="px-4">
-                                    <Dropdown.Item href="/wip" className="px-0">
+                                    <Dropdown.Item
+                                        href="/login"
+                                        className="px-0"
+                                    >
                                         Esci
                                     </Dropdown.Item>
                                 </Container>
