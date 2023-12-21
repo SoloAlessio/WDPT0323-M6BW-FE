@@ -12,7 +12,7 @@ function AddExperience({ userId, show, setShow, expId, getExperiences }) {
     ring.register()
     const uploadImg = () => {
         fetch(
-            `${process.env.ENDPOINT_URL}/profile/${userId}/experiences/${expId}/picture`,
+            `http://localhost:3030/api/profile/${userId}/experiences/${expId}/picture`,
             {
                 method: "POST",
                 body: fd,
@@ -47,7 +47,7 @@ function AddExperience({ userId, show, setShow, expId, getExperiences }) {
     useEffect(() => {
         if (expId) {
             fetch(
-                `${process.env.ENDPOINT_URL}/profile/${userId}/experiences/${expId}`,
+                `http://localhost:3030/api/profile/${userId}/experiences/${expId}`,
                 {
                     headers: {
                         Authorization: `Bearer ${process.env.REACT_APP_MY_TOKEN}`,
@@ -75,7 +75,7 @@ function AddExperience({ userId, show, setShow, expId, getExperiences }) {
         setLoading(true)
         e.preventDefault()
         if (!expId) {
-            fetch(`${process.env.ENDPOINT_URL}/profile/${userId}/experiences`, {
+            fetch(`http://localhost:3030/api/profile/${userId}/experiences`, {
                 headers: {
                     Authorization: `Bearer ${process.env.REACT_APP_MY_TOKEN}`,
                     "Content-Type": "application/json",
@@ -105,7 +105,7 @@ function AddExperience({ userId, show, setShow, expId, getExperiences }) {
                 .catch(() => toast.error("oh oh riprova!"))
         } else {
             fetch(
-                `${process.env.ENDPOINT_URL}/profile/${userId}/experiences/${expId}`,
+                `http://localhost:3030/api/profile${userId}/experiences/${expId}`,
                 {
                     headers: {
                         Authorization: `Bearer ${process.env.REACT_APP_MY_TOKEN}`,

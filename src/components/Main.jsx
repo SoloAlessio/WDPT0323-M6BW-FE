@@ -12,13 +12,17 @@ export default function Main() {
     const [myProfile, setMyProfile] = useState("")
     const token = localStorage.getItem("token")
     const myId = localStorage.getItem("userId")
+    console.log(token, myId)
 
     const getMyProfile = useCallback(async () => {
-        let response = await fetch(`${process.env.ENDPOINT_URL}/profile/me`, {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        })
+        let response = await fetch(
+            `http://localhost:3030/api/profile/${myId}`,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            }
+        )
 
         if (response.ok) {
             let data = await response.json()
@@ -27,10 +31,10 @@ export default function Main() {
         } else {
             throw new Error("Error")
         }
-    }, [token])
+    }, [token, myId])
 
     const getAllProfiles = useCallback(async () => {
-        let response = await fetch(`${process.env.ENDPOINT_URL}/profile`, {
+        let response = await fetch("http://localhost:3030/api/profile", {
             headers: {
                 Authorization: `Bearer ${token}`,
             },

@@ -6,13 +6,14 @@ import { useState } from "react"
 
 function Login() {
     const navigate = useNavigate()
+
     const [body, setBody] = useState({
         email: "",
         password: "",
     })
-    const handleSubmit = async (e) => {
+    const handleLogin = async (e) => {
         e.preventDefault()
-        console.log(body)
+
         let response = await fetch("http://localhost:3030/api/login", {
             method: "POST",
             headers: {
@@ -36,7 +37,7 @@ function Login() {
             <Row>
                 <Col md={4} className="mx-auto my-5 rounded p-4 bg-white">
                     <h4 className="mb-4">Login</h4>
-                    <Form onSubmit={(event) => handleSubmit(event)}>
+                    <Form onSubmit={(event) => handleLogin(event)}>
                         <Form.Group controlId="formBasicEmail" className="mb-3">
                             <Form.Label>Email address</Form.Label>
                             <Form.Control

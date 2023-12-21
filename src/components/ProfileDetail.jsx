@@ -10,7 +10,7 @@ export default function ProfileDetail() {
     const [myId, setMyId] = useState("")
 
     const getMyProfile = useCallback(() => {
-        fetch(`${process.env.ENDPOINT_URL}/profile/${id}`, {
+        fetch(`http://localhost:3030/api/profile/${id}`, {
             headers: {
                 Authorization: `Bearer ${process.env.REACT_APP_MY_TOKEN}`,
             },
@@ -20,7 +20,7 @@ export default function ProfileDetail() {
     }, [id])
 
     const getMyPersonalProfile = useCallback(() => {
-        fetch(`${process.env.ENDPOINT_URL}/profile/me`, {
+        fetch(`http://localhost:3030/api/profile/${id}`, {
             headers: {
                 Authorization: `Bearer ${process.env.REACT_APP_MY_TOKEN}`,
             },
@@ -29,7 +29,7 @@ export default function ProfileDetail() {
             .then((data) => {
                 setMyId(data["_id"])
             })
-    }, [])
+    }, [id])
 
     useEffect(() => {
         getMyProfile()

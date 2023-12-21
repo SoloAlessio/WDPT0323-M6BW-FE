@@ -10,7 +10,7 @@ export default function Experiences({ userId, myId }) {
     const [exp, setExp] = useState([])
 
     const getExperiences = useCallback(() => {
-        fetch(`${process.env.ENDPOINT_URL}/profile/${userId}/experiences`, {
+        fetch(`http://localhost:3030/api/profile/${userId}/experiences`, {
             headers: {
                 Authorization: `Bearer ${process.env.REACT_APP_MY_TOKEN}`,
             },

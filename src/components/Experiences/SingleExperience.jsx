@@ -62,7 +62,7 @@ export default function SingleExperience({
         }
         try {
             let response = await fetch(
-                `${process.env.ENDPOINT_URL}/profile/${userId}/experiences/${experienceId}`,
+                `http://localhost:3030/api/profile/${userId}/experiences/${experienceId}`,
                 {
                     headers: {
                         Authorization: `Bearer ${process.env.REACT_APP_MY_TOKEN}`,
