@@ -15,7 +15,8 @@ import * as Icon from "react-bootstrap-icons"
 import "./navbar.scss"
 import { useCallback, useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
-import useJwt from "../hook/useJwt"
+import { useJwt } from '../hook/useJwt';
+
 
 
 export default function NavBar() {
@@ -61,7 +62,7 @@ export default function NavBar() {
             .then((data) => {
                 setMyProfile(data)
             })
-    }, [token])
+    }, [token, userId])
 
     useEffect(() => {
         getMyProfile()
