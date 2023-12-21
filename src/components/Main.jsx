@@ -16,7 +16,7 @@ export default function Main() {
 
     const getMyProfile = useCallback(async () => {
         let response = await fetch(
-            `http://localhost:3030/api/profile/${myId}`,
+            `${process.env.REACT_APP_ENDPOINT_URL}/profile/me`,
             {
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -34,11 +34,14 @@ export default function Main() {
     }, [token, myId])
 
     const getAllProfiles = useCallback(async () => {
-        let response = await fetch("http://localhost:3030/api/profile", {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        })
+        let response = await fetch(
+            `${process.env.REACT_APP_ENDPOINT_URL}/profile`,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            }
+        )
 
         if (response.ok) {
             let data = await response.json()

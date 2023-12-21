@@ -23,7 +23,7 @@ export default function NavBar() {
     const id = localStorage.getItem("userId")
 
     useEffect(() => {
-        fetch("http://localhost:3030/api/profile", {
+        fetch(`${process.env.REACT_APP_ENDPOINT_URL}/profile/`, {
             headers: {
                 Authorization: `Bearer ${token}`,
                 "Content-Type": "application/json",
@@ -48,11 +48,14 @@ export default function NavBar() {
     const [myProfile, setMyProfile] = useState("")
 
     const getMyProfile = useCallback(() => {
-        fetch(`http://localhost:3030/api/profile/${id}`, {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        })
+        fetch(
+            `${process.env.REACT_APP_ENDPOINT_URL}/profile/6581e975ff3b3553e74fdbcd`,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            }
+        )
             .then((r) => r.json())
             .then((data) => {
                 setMyProfile(data)

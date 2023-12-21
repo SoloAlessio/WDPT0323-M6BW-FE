@@ -21,13 +21,16 @@ function ModifyImg({ myProfile, getMyProfile, show, setShow }) {
         ev.preventDefault()
         setLoading(true)
 
-        fetch(`http://localhost:3030/api/profile/${id}/avatar`, {
-            method: "PATCH",
-            body: fd,
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        }).then((response) => {
+        fetch(
+            `${process.env.REACT_APP_ENDPOINT_URL}/profile/${myProfile["_id"]}/picture`,
+            {
+                method: "POST",
+                body: fd,
+                headers: {
+                    Authorization: `Bearer ${process.env.REACT_APP_MY_TOKEN}`,
+                },
+            }
+        ).then((response) => {
             if (response.ok) {
                 getMyProfile()
                 toast.success("Immagine cambiata con successo!")
