@@ -3,6 +3,7 @@ import { Container, Row, Col, Form, Button } from "react-bootstrap"
 import { useNavigate } from "react-router"
 import { Link } from "react-router-dom"
 import { useState } from "react"
+import { GoogleLoginButton } from "react-social-login-buttons"
 
 function Login() {
     const navigate = useNavigate()
@@ -78,6 +79,13 @@ function Login() {
                         >
                             Login
                         </Button>
+                        <GoogleLoginButton className="mt-4"
+                                onClick={() => {
+                                    window.location.assign(
+                                        `${process.env.REACT_APP_BACKEND_ENDPOINT}/profile/oauth-google`
+                                    )
+                                }}
+                            ></GoogleLoginButton>
                         <div className="text-center mt-3 w-100">
                             <Link
                                 to="/register"
