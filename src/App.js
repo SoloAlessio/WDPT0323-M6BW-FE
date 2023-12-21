@@ -10,6 +10,7 @@ import { ToastContainer } from "react-toastify"
 import WorkInProgress from "./components/WorkInProgress"
 import ChatArea from "./components/ChatArea/ChatArea"
 import Login from "./components/Login"
+import "dotenv/config"
 
 function App() {
     return (

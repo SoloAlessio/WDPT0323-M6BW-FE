@@ -13,7 +13,7 @@ function Login() {
     const handleSubmit = async (e) => {
         e.preventDefault()
         console.log(body)
-        let response = await fetch("http://localhost:3030/api/login", {
+        let response = await fetch(`${process.env.ENDPOINT_URL}/login`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
