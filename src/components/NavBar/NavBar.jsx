@@ -18,13 +18,13 @@ import { useNavigate } from "react-router-dom"
 
 
 
-
 export default function NavBar() {
     const [searchQuery, setSearchQuery] = useState("")
     const [profiles, setprofiles] = useState([])
     const [filteredProfiles, setFilteredProfiles] = useState([])
     const navigate = useNavigate()
-    const { userId, token } = useJwt()
+    const token = localStorage.getItem("token")
+    const myId = localStorage.getItem("userId")
 
     useEffect(() => {
         fetch(`${process.env.ENDPOINT_URL}/profile/`, {
@@ -53,7 +53,7 @@ export default function NavBar() {
     const [myProfile, setMyProfile] = useState("")
 
     const getMyProfile = useCallback(() => {
-        fetch(`${process.env.ENDPOINT_URL}/profile/${userId}`, {
+        fetch(`${process.env.ENDPOINT_URL}/profile/${myId}`, {
             headers: {
                 Authorization: `Bearer ${token}`,
             },
@@ -62,7 +62,7 @@ export default function NavBar() {
             .then((data) => {
                 setMyProfile(data)
             })
-    }, [token, userId])
+    }, [token, myId])
 
     useEffect(() => {
         getMyProfile()
