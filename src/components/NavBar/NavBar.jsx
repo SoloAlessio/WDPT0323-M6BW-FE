@@ -15,14 +15,15 @@ import * as Icon from "react-bootstrap-icons"
 import "./navbar.scss"
 import { useCallback, useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
+import useJwt from "../hook/useJwt"
 
 
 export default function NavBar() {
     const [searchQuery, setSearchQuery] = useState("")
     const [profiles, setprofiles] = useState([])
     const [filteredProfiles, setFilteredProfiles] = useState([])
-    const token = localStorage.getItem("token")
     const navigate = useNavigate()
+    const { userId, token } = useJwt()
 
     useEffect(() => {
         fetch(`${process.env.ENDPOINT_URL}/profile/`, {
@@ -51,7 +52,7 @@ export default function NavBar() {
     const [myProfile, setMyProfile] = useState("")
 
     const getMyProfile = useCallback(() => {
-        fetch(`${process.env.ENDPOINT_URL}/profile/6581e975ff3b3553e74fdbcd`, {
+        fetch(`${process.env.ENDPOINT_URL}/profile/${userId}`, {
             headers: {
                 Authorization: `Bearer ${token}`,
             },
