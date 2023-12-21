@@ -14,12 +14,15 @@ import { Link } from "react-router-dom"
 import * as Icon from "react-bootstrap-icons"
 import "./navbar.scss"
 import { useCallback, useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom"
+
 
 export default function NavBar() {
     const [searchQuery, setSearchQuery] = useState("")
     const [profiles, setprofiles] = useState([])
     const [filteredProfiles, setFilteredProfiles] = useState([])
     const token = localStorage.getItem("token")
+    const navigate = useNavigate()
 
     useEffect(() => {
         fetch(`${process.env.ENDPOINT_URL}/profile/`, {
@@ -325,7 +328,13 @@ export default function NavBar() {
                                 <NavDropdown.Divider />
 
                                 <Container className="px-4">
-                                    <Dropdown.Item href="/wip" className="px-0">
+                                    <Dropdown.Item
+                                        className="px-0"
+                                        onClick={() => {
+                                            navigate("/login")
+                                            localStorage.clear()
+                                        }}
+                                    >
                                         Esci
                                     </Dropdown.Item>
                                 </Container>
