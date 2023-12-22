@@ -70,7 +70,7 @@ function AddExperience({ userId, show, setShow, expId, getExperiences }) {
                     setChecked(!experience.endDate)
                 })
         }
-    }, [expId, userId])
+    }, [expId, userId, token])
 
     const handleSubmit = (e) => {
         setLoading(true)

@@ -29,7 +29,7 @@ export default function Main() {
         } else {
             throw new Error("Error")
         }
-    }, [token, userId])
+    }, [token])
 
     const getAllProfiles = useCallback(async () => {
         let response = await fetch(

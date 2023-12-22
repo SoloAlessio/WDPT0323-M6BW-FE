@@ -19,7 +19,7 @@ export default function ProfileDetail() {
             .then((r) => r.json())
             .then(setMyProfile)
             .then(console.log(myProfile))
-    }, [id, token])
+    }, [id, token, myProfile])
 
     const getMyPersonalProfile = useCallback(() => {
         fetch(`${process.env.REACT_APP_ENDPOINT_URL}/profile/me`, {

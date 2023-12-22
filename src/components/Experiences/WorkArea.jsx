@@ -22,7 +22,7 @@ export default function Experiences({ userId }) {
         )
             .then((r) => r.json())
             .then(setExp)
-    }, [userId])
+    }, [userId, token])
 
     useEffect(() => {
         getExperiences()

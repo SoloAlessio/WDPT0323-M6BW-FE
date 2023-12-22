@@ -20,6 +20,7 @@ export default function NavBar() {
     const [searchQuery, setSearchQuery] = useState("")
     const [profiles, setprofiles] = useState([])
     const [filteredProfiles, setFilteredProfiles] = useState([])
+    const navigate = useNavigate()
     const token = localStorage.getItem("token")
 
     useEffect(() => {
