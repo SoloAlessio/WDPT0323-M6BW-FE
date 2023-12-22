@@ -50,7 +50,11 @@ export default function NavBar() {
     const [myProfile, setMyProfile] = useState("")
 
     const getMyProfile = useCallback(() => {
+<<<<<<< Updated upstream
         fetch(`${process.env.ENDPOINT_URL}/profile/6581e975ff3b3553e74fdbcd`, {
+=======
+        fetch(`${process.env.REACT_APP_ENDPOINT_URL}/profile/me`, {
+>>>>>>> Stashed changes
             headers: {
                 Authorization: `Bearer ${token}`,
             },
