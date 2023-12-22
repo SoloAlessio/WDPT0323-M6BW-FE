@@ -14,27 +14,24 @@ import { Link } from "react-router-dom"
 import * as Icon from "react-bootstrap-icons"
 import "./navbar.scss"
 import { useCallback, useEffect, useState } from "react"
-import { useNavigate } from "react-router-dom"
 
 export default function NavBar() {
     const [searchQuery, setSearchQuery] = useState("")
     const [profiles, setprofiles] = useState([])
     const [filteredProfiles, setFilteredProfiles] = useState([])
-    const navigate = useNavigate()
     const token = localStorage.getItem("token")
-    const myId = localStorage.getItem("userId")
 
     useEffect(() => {
         fetch(`${process.env.REACT_APP_ENDPOINT_URL}/profile`, {
             headers: {
                 Authorization: `Bearer ${token}`,
-                "Content-Type": "application/json",
             },
         })
             .then((r) => r.json())
             .then((profiles) => {
                 setprofiles(profiles)
             })
+            .catch((error) => console.error("Error fetching data:", error))
     }, [token])
 
     function Filter() {
@@ -50,11 +47,7 @@ export default function NavBar() {
     const [myProfile, setMyProfile] = useState("")
 
     const getMyProfile = useCallback(() => {
-<<<<<<< Updated upstream
-        fetch(`${process.env.ENDPOINT_URL}/profile/6581e975ff3b3553e74fdbcd`, {
-=======
         fetch(`${process.env.REACT_APP_ENDPOINT_URL}/profile/me`, {
->>>>>>> Stashed changes
             headers: {
                 Authorization: `Bearer ${token}`,
             },
@@ -63,7 +56,7 @@ export default function NavBar() {
             .then((data) => {
                 setMyProfile(data)
             })
-    }, [token, myId])
+    }, [token])
 
     useEffect(() => {
         getMyProfile()

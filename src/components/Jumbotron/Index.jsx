@@ -5,19 +5,11 @@ import { useState } from "react"
 import ModifyImg from "./ModifyImg.jsx"
 import * as Icon from "react-bootstrap-icons"
 
-<<<<<<< Updated upstream
 export default function Jumbotron({ myProfile, getMyProfile }) {
     const [show, setShow] = useState(false)
     const myId = localStorage.getItem("userId")
     const handleShow = () => setShow(true)
     const handleClose = () => setShow(false)
-=======
-export default function Jumbotron({ myProfile, getMyProfile, myId }) {
-    const [show, setShow] = useState(false)
-    const handleShow = () => setShow(true)
-    const handleClose = () => setShow(false)
-    console.log(myProfile)
->>>>>>> Stashed changes
 
     return (
         <Container

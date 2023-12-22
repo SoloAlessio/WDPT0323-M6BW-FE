@@ -20,12 +20,7 @@ function ModifyImg({ myProfile, getMyProfile, show, setShow }) {
         })
         ev.preventDefault()
         setLoading(true)
-<<<<<<< Updated upstream
         fetch(`${process.env.REACT_APP_ENDPOINT_URL}/profile/${Id}/avatar`, {
-=======
-
-        fetch(`${process.env.REACT_APP_ENDPOINT_URL}/profile/${id}/avatar`, {
->>>>>>> Stashed changes
             method: "PATCH",
             body: fd,
             headers: {
