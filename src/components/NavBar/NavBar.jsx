@@ -14,6 +14,7 @@ import { Link } from "react-router-dom"
 import * as Icon from "react-bootstrap-icons"
 import "./navbar.scss"
 import { useCallback, useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom"
 
 export default function NavBar() {
     const [searchQuery, setSearchQuery] = useState("")
@@ -325,8 +326,11 @@ export default function NavBar() {
 
                                 <Container className="px-4">
                                     <Dropdown.Item
-                                        href="/login"
                                         className="px-0"
+                                        onClick={() => {
+                                            navigate("/login")
+                                            localStorage.clear()
+                                        }}
                                     >
                                         Esci
                                     </Dropdown.Item>
