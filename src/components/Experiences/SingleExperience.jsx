@@ -89,7 +89,7 @@ export default function SingleExperience({
             <Col className="d-flex mb-4" md={9}>
                 <div>
                     <img
-                        src={Experience.image ? Experience.image : imgDefault}
+                        src={Experience.photo ? Experience.photo : imgDefault}
                         className="rounded-circle"
                         alt="experience-cover"
                         width={48}
