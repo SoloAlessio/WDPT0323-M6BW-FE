@@ -14,13 +14,15 @@ import { Link } from "react-router-dom"
 import * as Icon from "react-bootstrap-icons"
 import "./navbar.scss"
 import { useCallback, useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom"
 
 export default function NavBar() {
     const [searchQuery, setSearchQuery] = useState("")
     const [profiles, setprofiles] = useState([])
     const [filteredProfiles, setFilteredProfiles] = useState([])
+    const navigate = useNavigate()
     const token = localStorage.getItem("token")
-    const id = localStorage.getItem("userId")
+    const myId = localStorage.getItem("userId")
 
     useEffect(() => {
         fetch(`${process.env.REACT_APP_ENDPOINT_URL}/profile/`, {
@@ -48,19 +50,16 @@ export default function NavBar() {
     const [myProfile, setMyProfile] = useState("")
 
     const getMyProfile = useCallback(() => {
-        fetch(
-            `${process.env.REACT_APP_ENDPOINT_URL}/profile/6581e975ff3b3553e74fdbcd`,
-            {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            }
-        )
+        fetch(`${process.env.ENDPOINT_URL}/profile/${myId}`, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        })
             .then((r) => r.json())
             .then((data) => {
                 setMyProfile(data)
             })
-    }, [token, id])
+    }, [token, myId])
 
     useEffect(() => {
         getMyProfile()
@@ -328,7 +327,13 @@ export default function NavBar() {
                                 <NavDropdown.Divider />
 
                                 <Container className="px-4">
-                                    <Dropdown.Item href="/wip" className="px-0">
+                                    <Dropdown.Item
+                                        className="px-0"
+                                        onClick={() => {
+                                            navigate("/login")
+                                            localStorage.clear()
+                                        }}
+                                    >
                                         Esci
                                     </Dropdown.Item>
                                 </Container>
