@@ -112,7 +112,7 @@ export default function Main() {
                         </p>
                         <Container fluid>
                             {allProfiles ? (
-                                allProfiles.slice(5, 15).map((p) => (
+                                allProfiles.map((p) => (
                                     <Link
                                         to={`/profile/${p._id}`}
                                         key={p._id}
@@ -122,7 +122,11 @@ export default function Main() {
                                         <Row className="py-2 g-2">
                                             <Col xs="auto">
                                                 <img
-                                                    src={p.image}
+                                                    src={
+                                                        p.image
+                                                            ? p.image
+                                                            : "https://picsum.photos/200/300"
+                                                    }
                                                     width={"48px"}
                                                     height={"48px"}
                                                     alt=""
