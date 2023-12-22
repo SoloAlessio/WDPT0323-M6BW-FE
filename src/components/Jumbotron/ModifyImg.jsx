@@ -9,25 +9,24 @@ function ModifyImg({ myProfile, getMyProfile, show, setShow }) {
     const handleClose = () => setShow(false)
     const [fd, setFd] = useState(new FormData())
     const [loading, setLoading] = useState(false)
+    const Id = localStorage.getItem("userId")
+    const token = localStorage.getItem("token")
 
     const handleFile = (ev) => {
         setFd((prev) => {
-            prev.delete("profile")
-            prev.append("profile", ev.target.files[0])
+            prev.delete("avatar")
+            prev.append("avatar", ev.target.files[0])
             return prev
         })
         ev.preventDefault()
         setLoading(true)
-        fetch(
-            `${process.env.ENDPOINT_URL}/profile/${myProfile["_id"]}/picture`,
-            {
-                method: "POST",
-                body: fd,
-                headers: {
-                    Authorization: `Bearer ${process.env.REACT_APP_MY_TOKEN}`,
-                },
-            }
-        ).then((response) => {
+        fetch(`${process.env.REACT_APP_ENDPOINT_URL}/profile/${Id}/avatar`, {
+            method: "PATCH",
+            body: fd,
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        }).then((response) => {
             if (response.ok) {
                 getMyProfile()
                 toast.success("Immagine cambiata con successo!")

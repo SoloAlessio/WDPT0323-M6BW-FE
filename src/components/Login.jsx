@@ -13,14 +13,16 @@ function Login() {
     })
     const handleSubmit = async (e) => {
         e.preventDefault()
-        console.log(body)
-        let response = await fetch("http://localhost:3030/api/login", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(body),
-        })
+        let response = await fetch(
+            `${process.env.REACT_APP_ENDPOINT_URL}/login`,
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(body),
+            }
+        )
         if (response.ok) {
             let data = await response.json()
             localStorage.setItem("token", data.token)
