@@ -5,9 +5,11 @@ import Experiences from "./Experiences/WorkArea.jsx"
 import { Link } from "react-router-dom"
 import * as Icon from "react-bootstrap-icons"
 import { dotStream } from "ldrs"
+import { useNavigate } from "react-router-dom"
 
 export default function Main() {
     dotStream.register()
+    const navigate = useNavigate()
     const [allProfiles, setAllProfiles] = useState("")
     const [myProfile, setMyProfile] = useState("")
     const token = localStorage.getItem("token")
@@ -50,6 +52,11 @@ export default function Main() {
     }, [token])
 
     useEffect(() => {
+        const token = localStorage.getItem("token")
+        if (!token) {
+            navigate("/login")
+            return
+        }
         getMyProfile()
         getAllProfiles()
         window.scrollTo(0, 0)
