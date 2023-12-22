@@ -11,8 +11,7 @@ export default function Main() {
     const [allProfiles, setAllProfiles] = useState("")
     const [myProfile, setMyProfile] = useState("")
     const token = localStorage.getItem("token")
-    const myId = localStorage.getItem("userId")
-    console.log(token, myId)
+    const userId = localStorage.getItem("userId")
 
     const getMyProfile = useCallback(async () => {
         let response = await fetch(
@@ -26,7 +25,6 @@ export default function Main() {
 
         if (response.ok) {
             let data = await response.json()
-            console.log(data)
             setMyProfile(data)
         } else {
             throw new Error("Error")
@@ -64,11 +62,8 @@ export default function Main() {
                     <Jumbotron
                         myProfile={myProfile}
                         getMyProfile={getMyProfile}
-                        myId={myId}
                     />
-                    {myProfile && (
-                        <Experiences userId={myProfile._id} myId={myId} />
-                    )}
+                    {myProfile && <Experiences userId={userId} />}
                 </Col>
                 <Col lg={4}>
                     <Container className="bg-white border rounded-3 p-3 mt-2 mt-lg-0">

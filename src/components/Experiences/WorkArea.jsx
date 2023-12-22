@@ -5,16 +5,21 @@ import "./experiences.scss"
 import AddExperience from "../AddExperience/Index"
 import SingleExperience from "./SingleExperience"
 
-export default function Experiences({ userId, myId }) {
+export default function Experiences({ userId }) {
     const [show, setShow] = useState(false)
     const [exp, setExp] = useState([])
+    const token = localStorage.getItem("token")
+    const myId = localStorage.getItem("userId")
 
     const getExperiences = useCallback(() => {
-        fetch(`http://localhost:3030/api/profile/${userId}/experiences`, {
-            headers: {
-                Authorization: `Bearer ${process.env.REACT_APP_MY_TOKEN}`,
-            },
-        })
+        fetch(
+            `${process.env.REACT_APP_ENDPOINT_URL}/profile/${userId}/experiences`,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            }
+        )
             .then((r) => r.json())
             .then(setExp)
     }, [userId])

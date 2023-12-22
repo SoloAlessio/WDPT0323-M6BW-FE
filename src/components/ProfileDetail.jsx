@@ -8,28 +8,30 @@ export default function ProfileDetail() {
     const [myProfile, setMyProfile] = useState({})
     const { id } = useParams()
     const [myId, setMyId] = useState("")
+    const token = localStorage.getItem("token")
 
     const getMyProfile = useCallback(() => {
-        fetch(`http://localhost:3030/api/profile/${id}`, {
+        fetch(`${process.env.REACT_APP_ENDPOINT_URL}/profile/${id}`, {
             headers: {
-                Authorization: `Bearer ${process.env.REACT_APP_MY_TOKEN}`,
+                Authorization: `Bearer ${token}`,
             },
         })
             .then((r) => r.json())
             .then(setMyProfile)
-    }, [id])
+            .then(console.log(myProfile))
+    }, [id, token])
 
     const getMyPersonalProfile = useCallback(() => {
-        fetch(`http://localhost:3030/api/profile/${id}`, {
+        fetch(`${process.env.REACT_APP_ENDPOINT_URL}/profile/me`, {
             headers: {
-                Authorization: `Bearer ${process.env.REACT_APP_MY_TOKEN}`,
+                Authorization: `Bearer ${token}`,
             },
         })
             .then((r) => r.json())
             .then((data) => {
                 setMyId(data["_id"])
             })
-    }, [id])
+    }, [token])
 
     useEffect(() => {
         getMyProfile()

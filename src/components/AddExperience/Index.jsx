@@ -9,15 +9,16 @@ function AddExperience({ userId, show, setShow, expId, getExperiences }) {
     const [checked, setChecked] = useState(false)
     const [fd, setFd] = useState(new FormData())
     const [loading, setLoading] = useState(false)
+    const token = localStorage.getItem("token")
     ring.register()
     const uploadImg = () => {
         fetch(
-            `http://localhost:3030/api/profile/${userId}/experiences/${expId}/picture`,
+            `${process.env.REACT_APP_ENDPOINT_URL}/profile/${userId}/experiences/${expId}/picture`,
             {
                 method: "POST",
                 body: fd,
                 headers: {
-                    Authorization: `Bearer ${process.env.REACT_APP_MY_TOKEN}`,
+                    Authorization: `Bearer ${token}`,
                 },
             }
         ).then(() => {
@@ -47,15 +48,15 @@ function AddExperience({ userId, show, setShow, expId, getExperiences }) {
     useEffect(() => {
         if (expId) {
             fetch(
-                `http://localhost:3030/api/profile/${userId}/experiences/${expId}`,
+                `${process.env.REACT_APP_ENDPOINT_URL}/profile/${userId}/experiences/${expId}`,
                 {
                     headers: {
-                        Authorization: `Bearer ${process.env.REACT_APP_MY_TOKEN}`,
+                        Authorization: `Bearer ${token}`,
                     },
                 }
             )
                 .then((r) => r.json())
-                .then((experience) => {
+                .then(([experience]) => {
                     setForm({
                         role: experience.role,
                         company: experience.company,
@@ -75,9 +76,9 @@ function AddExperience({ userId, show, setShow, expId, getExperiences }) {
         setLoading(true)
         e.preventDefault()
         if (!expId) {
-            fetch(`http://localhost:3030/api/profile/${userId}/experiences`, {
+            fetch(`${process.env.REACT_APP_ENDPOINT_URL}/profile/experiences`, {
                 headers: {
-                    Authorization: `Bearer ${process.env.REACT_APP_MY_TOKEN}`,
+                    Authorization: `Bearer ${token}`,
                     "Content-Type": "application/json",
                 },
                 method: "POST",
@@ -85,7 +86,7 @@ function AddExperience({ userId, show, setShow, expId, getExperiences }) {
             })
                 .then((r) => r.json())
                 .then((data) => {
-                    expId = data["_id"]
+                    expId = data._id
                     setChecked(!checked)
                     setForm({
                         role: "",
@@ -105,10 +106,10 @@ function AddExperience({ userId, show, setShow, expId, getExperiences }) {
                 .catch(() => toast.error("oh oh riprova!"))
         } else {
             fetch(
-                `http://localhost:3030/api/profile${userId}/experiences/${expId}`,
+                `${process.env.REACT_APP_ENDPOINT_URL}/profile/${userId}/experiences/${expId}`,
                 {
                     headers: {
-                        Authorization: `Bearer ${process.env.REACT_APP_MY_TOKEN}`,
+                        Authorization: `Bearer ${token}`,
                         "Content-Type": "application/json",
                     },
                     method: "PUT",

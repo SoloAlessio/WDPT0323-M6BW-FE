@@ -14,14 +14,16 @@ function Login() {
     })
     const handleLogin = async (e) => {
         e.preventDefault()
-
-        let response = await fetch("http://localhost:3030/api/login", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(body),
-        })
+        let response = await fetch(
+            `${process.env.REACT_APP_ENDPOINT_URL}/login`,
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(body),
+            }
+        )
         if (response.ok) {
             let data = await response.json()
             localStorage.setItem("token", data.token)
@@ -80,13 +82,14 @@ function Login() {
                         >
                             Login
                         </Button>
-                        <GoogleLoginButton className="mt-4"
-                                onClick={() => {
-                                    window.location.assign(
-                                        `${process.env.REACT_APP_BACKEND_ENDPOINT}/profile/oauth-google`
-                                    )
-                                }}
-                            ></GoogleLoginButton>
+                        <GoogleLoginButton
+                            className="mt-4"
+                            onClick={() => {
+                                window.location.assign(
+                                    `${process.env.REACT_APP_BACKEND_ENDPOINT}/profile/oauth-google`
+                                )
+                            }}
+                        ></GoogleLoginButton>
                         <div className="text-center mt-3 w-100">
                             <Link
                                 to="/register"

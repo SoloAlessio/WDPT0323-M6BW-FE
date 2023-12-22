@@ -52,6 +52,7 @@ export default function SingleExperience({
     myId,
 }) {
     const [show, setShow] = useState(false)
+    const token = localStorage.getItem("token")
     const dataInizio = new Date(Experience.startDate)
     const dataFine =
         Experience.endDate === null ? new Date() : new Date(Experience.endDate)
@@ -62,10 +63,10 @@ export default function SingleExperience({
         }
         try {
             let response = await fetch(
-                `http://localhost:3030/api/profile/${userId}/experiences/${experienceId}`,
+                `${process.env.REACT_APP_ENDPOINT_URL}/profile/${userId}/experiences/${experienceId}`,
                 {
                     headers: {
-                        Authorization: `Bearer ${process.env.REACT_APP_MY_TOKEN}`,
+                        Authorization: `Bearer ${token}`,
                     },
                     method: "DELETE",
                 }

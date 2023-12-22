@@ -25,7 +25,7 @@ export default function NavBar() {
     const myId = localStorage.getItem("userId")
 
     useEffect(() => {
-        fetch(`${process.env.REACT_APP_ENDPOINT_URL}/profile/`, {
+        fetch(`${process.env.REACT_APP_ENDPOINT_URL}/profile`, {
             headers: {
                 Authorization: `Bearer ${token}`,
                 "Content-Type": "application/json",
@@ -50,7 +50,7 @@ export default function NavBar() {
     const [myProfile, setMyProfile] = useState("")
 
     const getMyProfile = useCallback(() => {
-        fetch(`${process.env.ENDPOINT_URL}/profile/${myId}`, {
+        fetch(`${process.env.ENDPOINT_URL}/profile/6581e975ff3b3553e74fdbcd`, {
             headers: {
                 Authorization: `Bearer ${token}`,
             },
@@ -328,11 +328,8 @@ export default function NavBar() {
 
                                 <Container className="px-4">
                                     <Dropdown.Item
+                                        href="/login"
                                         className="px-0"
-                                        onClick={() => {
-                                            navigate("/login")
-                                            localStorage.clear()
-                                        }}
                                     >
                                         Esci
                                     </Dropdown.Item>
