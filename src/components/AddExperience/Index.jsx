@@ -13,9 +13,9 @@ function AddExperience({ userId, show, setShow, expId, getExperiences }) {
     ring.register()
     const uploadImg = () => {
         fetch(
-            `${process.env.REACT_APP_ENDPOINT_URL}/profile/${userId}/experiences/${expId}/picture`,
+            `${process.env.REACT_APP_ENDPOINT_URL}/profile/experience/${expId}/cover`,
             {
-                method: "POST",
+                method: "PATCH",
                 body: fd,
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -28,10 +28,11 @@ function AddExperience({ userId, show, setShow, expId, getExperiences }) {
 
     const handleFile = (ev) => {
         setFd((prev) => {
-            prev.delete("experience")
-            prev.append("experience", ev.target.files[0])
+            prev.delete("photo")
+            prev.append("photo", ev.target.files[0])
             return prev
         })
+        console.log(fd)
     }
 
     const [form, setForm] = useState({
@@ -70,7 +71,7 @@ function AddExperience({ userId, show, setShow, expId, getExperiences }) {
                     setChecked(!experience.endDate)
                 })
         }
-    }, [expId, userId])
+    }, [expId, userId, token])
 
     const handleSubmit = (e) => {
         setLoading(true)

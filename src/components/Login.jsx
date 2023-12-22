@@ -81,13 +81,14 @@ function Login() {
                         >
                             Login
                         </Button>
-                        <GoogleLoginButton className="mt-4"
-                                onClick={() => {
-                                    window.location.assign(
-                                        `${process.env.REACT_APP_BACKEND_ENDPOINT}/profile/oauth-google`
-                                    )
-                                }}
-                            ></GoogleLoginButton>
+                        <GoogleLoginButton
+                            className="mt-4 fs-6"
+                            onClick={() => {
+                                window.location.assign(
+                                    `api/profile/oauth-google`
+                                )
+                            }}
+                        ></GoogleLoginButton>
                         <div className="text-center mt-3 w-100">
                             <Link
                                 to="/register"
