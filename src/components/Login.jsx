@@ -85,7 +85,7 @@ function Login() {
                             className="mt-4 fs-6"
                             onClick={() => {
                                 window.location.assign(
-                                    `api/profile/oauth-google`
+                                    `api/profile/oauth-callback`
                                 )
                             }}
                         ></GoogleLoginButton>

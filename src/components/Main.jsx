@@ -60,7 +60,7 @@ export default function Main() {
         getMyProfile()
         getAllProfiles()
         window.scrollTo(0, 0)
-    }, [getMyProfile, getAllProfiles, token])
+    })
 
     return (
         <Container className="mt-4">
