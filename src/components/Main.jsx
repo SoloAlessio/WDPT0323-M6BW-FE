@@ -5,9 +5,11 @@ import Experiences from "./Experiences/WorkArea.jsx"
 import { Link } from "react-router-dom"
 import * as Icon from "react-bootstrap-icons"
 import { dotStream } from "ldrs"
+import { useNavigate } from "react-router-dom"
 
 export default function Main() {
     dotStream.register()
+    const navigate = useNavigate()
     const [allProfiles, setAllProfiles] = useState("")
     const [myProfile, setMyProfile] = useState("")
     const token = localStorage.getItem("token")
@@ -50,10 +52,15 @@ export default function Main() {
     }, [token])
 
     useEffect(() => {
+        const token = localStorage.getItem("token")
+        if (!token) {
+            navigate("/login")
+            return
+        }
         getMyProfile()
         getAllProfiles()
         window.scrollTo(0, 0)
-    }, [getMyProfile, getAllProfiles, token])
+    })
 
     return (
         <Container className="mt-4">
@@ -105,7 +112,7 @@ export default function Main() {
                         </p>
                         <Container fluid>
                             {allProfiles ? (
-                                allProfiles.slice(5, 15).map((p) => (
+                                allProfiles.map((p) => (
                                     <Link
                                         to={`/profile/${p._id}`}
                                         key={p._id}
@@ -115,7 +122,11 @@ export default function Main() {
                                         <Row className="py-2 g-2">
                                             <Col xs="auto">
                                                 <img
-                                                    src={p.image}
+                                                    src={
+                                                        p.image
+                                                            ? p.image
+                                                            : "https://picsum.photos/200/300"
+                                                    }
                                                     width={"48px"}
                                                     height={"48px"}
                                                     alt=""
